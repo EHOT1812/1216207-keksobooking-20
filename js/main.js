@@ -5,7 +5,7 @@ var PIN_HEIGHT = 40;
 
 var OFFERS_COUNT = 8;
 
-var  OFFERS_TITLES = [
+var OFFERS_TITLES = [
   'Большая квартира',
   'Маленькая квартира',
   'Ограмный красивый дворец',
@@ -29,7 +29,7 @@ var CHECK_TIME = [
   '14:00'
 ];
 
-var  FEATURES_ARRAY = [
+var FEATURES_ARRAY = [
   'wifi',
   'dishwasher',
   'parking',
@@ -72,14 +72,14 @@ var generateOffers = function () {
   var offers = [];
   OFFERS_TITLES.sort(compareRandom); // Для заголовков в рандомном порядке
   for (var i = 0; i < OFFERS_COUNT; i++) {
-    var locX = 600;
-    var locY = 350;
+    var locX = getRandomFromTo(300, 900);
+    var locY = getRandomFromTo(150, 500);
     offers.push({
       author: {
         avatar: getAvatar(i)
       },
       offer: {
-        title: OFFER_TITLES[i],
+        title: OFFERS_TITLES[i],
         address: locX + ', ' + locY,
         price: getRandomFromTo(1000, 1000000),
         type: TYPES[getRandomFromTo(0, 2)],
@@ -109,13 +109,11 @@ var renderPins = function (renderingOffer) {
   var pinTemplate = document.querySelector('template').content;
   var pinElement = pinTemplate.cloneNode(true);
   pinElement.querySelector('.popup__avatar').src = renderingOffer.author.avatar;
-};
-
-var pinIcon = pinElement.querySelector('.map__pin');
-pinIcon.querySelector('img').src = renderingOffer.author.avatar;
-pinIcon.style.left = (renderingOffer.location.x + PIN_WIDTH / 2) + 'px';
-pinIcon.style.top = (renderingOffer.location.y + PIN_HEIGHT) + 'px';
-return pinElement;
+  var pinIcon = pinElement.querySelector('.map__pin');
+  pinIcon.querySelector('img').src = renderingOffer.author.avatar;
+  pinIcon.style.left = (renderingOffer.location.x + PIN_WIDTH / 2) + 'px';
+  pinIcon.style.top = (renderingOffer.location.y + PIN_HEIGHT) + 'px';
+  return pinElement;
 };
 
 var setupPins = function () {
