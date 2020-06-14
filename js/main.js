@@ -106,13 +106,11 @@ var showMap = function () {
 };
 
 var renderPins = function (renderingOffer) {
-  var pinTemplate = document.querySelector('template').content;
+  var pinTemplate = document.querySelector('#pin').content;
   var pinElement = pinTemplate.cloneNode(true);
-  pinElement.querySelector('.popup__avatar').src = renderingOffer.author.avatar;
-  var pinIcon = pinElement.querySelector('.map__pin');
-  pinIcon.querySelector('img').src = renderingOffer.author.avatar;
-  pinIcon.style.left = (renderingOffer.location.x + PIN_WIDTH / 2) + 'px';
-  pinIcon.style.top = (renderingOffer.location.y + PIN_HEIGHT) + 'px';
+  pinElement.querySelector('img').src = renderingOffer.author.avatar;
+  pinElement.style.left = (renderingOffer.location.x + PIN_WIDTH / 2) + 'px';
+  pinElement.style.top = (renderingOffer.location.y + PIN_HEIGHT) + 'px';
   return pinElement;
 };
 
