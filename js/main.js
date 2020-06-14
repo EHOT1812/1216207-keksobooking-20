@@ -56,7 +56,7 @@ var compareRandom = function () {
 };
 
 var getAvatar = function (num) {
-  return 'img/avarars/users0' + (num + 1) + '.png';
+  return 'img/avatars/user0' + (num + 1) + '.png';
 };
 
 var getPhotos = function () {
