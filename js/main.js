@@ -102,7 +102,7 @@ var generateOffers = function () {
 
 var showMap = function () {
   var mapBlock = document.querySelector('.map');
-  mapBlock.classList.remove('map-faded');
+  mapBlock.classList.remove('map--faded');
 };
 
 var renderPins = function (renderingOffer) {
