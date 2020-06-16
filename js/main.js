@@ -105,15 +105,55 @@ var showMap = function () {
   mapBlock.classList.remove('map--faded');
 };
 
+
 var renderPins = function (renderingOffer) {
-  var pinTemplate = document.querySelector('#pin').content;
+  var pinTemplate = document.querySelector('template').content;
   var pinElement = pinTemplate.cloneNode(true);
+  pinElement.querySelector('.popup__avatar').src = renderingOffer.author.avatar;
+  pinElement.querySelector('h3').textContent = renderingOffer.offer.title;
+  pinElement.querySelector('.popup__text--address').textContent = renderingOffer.offer.address;
+  pinElement.querySelector('.popup__text--price').textContent = renderingOffer.offer.price + ' \u20bd/ночь';
+  var getRuType = function (type) {
+    if (type === 'flat') {
+      return 'Квартира';
+    }
+    if (type === 'bungalo') {
+      return 'Бунгало';
+    }
+    return 'Дом';
+  };
+
+  pinElement.querySelector('h4').textContent = getRuType(renderingOffer.offer.type);
+
+  var elemStr = renderingOffer.offer.rooms + ' комнаты для ' + renderingOffer.offer.guests + ' гостей';
+  pinElement.querySelectorAll('p')[2].textContent = elemStr;
+
+  elemStr = 'Заезд после ' + renderingOffer.offer.checkin + ', выезд до ' + renderingOffer.offer.checkout;
+  pinElement.querySelectorAll('p')[3].textContent = elemStr;
+
+  var featuresElement = pinElement.querySelector('.popup__features');
+  featuresElement.innerHTML = '';
+  for (var m = 0; m < renderingOffer.offer.features.length; m++) {
+    var featureItem = document.createElement('li');
+    featureItem.className = 'popup__feature popup__feature--' + renderingOffer.offer.features[m];
+    featuresElement.appendChild(featureItem);
+  }
+
+  pinElement.querySelectorAll('p')[4].textContent = renderingOffer.offer.description;
+
+  var photosElement = pinElement.querySelector('.popup__photos');
+  for (var j = 0; j < renderingOffer.offer.photos.length; j++) {
+    var popupPhotoItem = pinElement.cloneNode(true);
+    popupPhotoItem.src = renderingOffer.offer.photos[j];
+    photosElement.appendChild(popupPhotoItem);
+  }
+
   pinElement.querySelector('.map__pin');
   var pinIcon = pinElement.querySelector('.map__pin');
   pinIcon.querySelector('img').src = renderingOffer.author.avatar;
   pinIcon.style.left = (renderingOffer.location.x + PIN_WIDTH / 2) + 'px';
   pinIcon.style.top = (renderingOffer.location.y + PIN_HEIGHT) + 'px';
-  return pinElement;
+  return pinIcon;
 };
 
 var setupPins = function () {
