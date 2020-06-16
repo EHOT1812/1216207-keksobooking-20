@@ -107,7 +107,7 @@ var showMap = function () {
 
 
 var renderPins = function (renderingOffer) {
-  var pinTemplate = document.querySelector('template').content;
+  var pinTemplate = document.querySelector('#pin').content;
   var pinElement = pinTemplate.cloneNode(true);
   pinElement.querySelector('.popup__avatar').src = renderingOffer.author.avatar;
   pinElement.querySelector('h3').textContent = renderingOffer.offer.title;
@@ -153,7 +153,7 @@ var renderPins = function (renderingOffer) {
   pinIcon.querySelector('img').src = renderingOffer.author.avatar;
   pinIcon.style.left = (renderingOffer.location.x + PIN_WIDTH / 2) + 'px';
   pinIcon.style.top = (renderingOffer.location.y + PIN_HEIGHT) + 'px';
-  return pinIcon;
+  return pinElement;
 };
 
 var setupPins = function () {
