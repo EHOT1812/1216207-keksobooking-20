@@ -49,8 +49,6 @@ var getRandomFromTo = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-var cardTemplate = document.querySelector('#card').content;
-
 // Для значений в случайном порядке которые неповторяются
 
 var compareRandom = function () {
@@ -107,14 +105,9 @@ var showMap = function () {
   mapBlock.classList.remove('map--faded');
 };
 
-
 var renderPins = function (renderingOffer) {
   var pinTemplate = document.querySelector('#pin').content;
   var pinElement = pinTemplate.cloneNode(true);
-  pinElement.querySelector('img').src = renderingOffer.author.avatar;
-  pinElement.querySelector('img').textContent = renderingOffer.offer.title;
-
-
   pinElement.querySelector('.map__pin');
   var pinIcon = pinElement.querySelector('.map__pin');
   pinIcon.querySelector('img').src = renderingOffer.author.avatar;
@@ -132,43 +125,6 @@ var setupPins = function () {
   }
   similarListElement.appendChild(fragment);
 };
-
-var renderCard = function (pin) {
-  var card = cardTemplate.cloneNode(true);
-  var featuresBlock = card.querySelector('.popup__features');
-  var photosBlock = card.querySelector('.popup__photos');
-
-  while (featuresBlock.firstChild) {
-    featuresBlock.removeChild(featuresBlock.firstChild);
-  }
-
-  while (photosBlock.firstChild) {
-    photosBlock.removeChild(photosBlock.firstChild);
-  }
-
-  for (var i = 0; i < FEATURES_ARRAY; i++) {
-    var element = pin.offer.features[i].cloneNode(true);
-    featuresBlock.appendChild(element);
-  }
-
-  for (var l = 0; l < PHOTOS_ARRAY; l++) {
-    var photo = pin.offer.photos[0].cloneNode(true);
-    photosBlock.appendChild(photo);
-    card.querySelectorAll('.popup__photo')[l].src = PHOTOS_ARRAY;
-  }
-
-  card.querySelector('.popup__title').textContent = pin.offer.title;
-  card.querySelector('.popup__text--address').textContent = pin.offer.address;
-  card.querySelector('.popup__text--price').textContent = pin.offer.price + '₽/ночь';
-  card.querySelector('.popup__type').textContent = pin.offer.type;
-  card.querySelector('.popup__text--capacity').textContent = pin.offer.rooms + ' комнаты для ' + pin.offer.guests + ' гостей';
-  card.querySelector('.popup__text--time').textContent = 'Заезд после ' + pin.offer.checkin + ', выезд до ' + pin.offer.checkout;
-  card.querySelector('.popup__description').textContent = pin.offer.description;
-  card.querySelector('.popup__avatar').src = pin.author.avatar;
-
-  return card;
-};
-
 
 showMap();
 setupPins();
