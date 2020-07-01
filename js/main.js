@@ -135,7 +135,8 @@ var setupPins = function () {
 };
 
 var renderCard = function (item) {
-  var card = cardTemplate.cloneNode(true);
+  var fragment = document.createDocumentFragment();
+  var card = cardTemplate.querySelector('.popup').cloneNode(true);
   var featuresBlock = card.querySelector('.popup__features');
   var photosBlock = card.querySelector('.popup__photos');
 
@@ -148,25 +149,19 @@ var renderCard = function (item) {
   }
 
   for (var i = 0; i < item.offer.features.length; i++) {
-    featuresBlock.remove();
-   var featuresItem = document.createElement('li');
-   featuresItem.classList.add('feature', 'feature--');
-   featuresBlock.appendChild(featuresItem);
+    var featuresList = document.createElement('li');
+    featuresList.classList.add('feature', 'feature--' + item.offer.features[i]);
+    fragment.appendChild(featuresList);
   }
 
   for (var l = 0; l < item.offer.photos.length; l++) {
-    photosBlock.remove();
+    var pictureList = document.createElement('li');
+    var pictureImg = document.createElement('img');
+    pictureImg.width = '40';
+    pictureImg.height = '40';
+    pictureList.appendChild(pictureImg);
+    fragment.appendChild(pictureList);
   }
-    item.offer.photos.forEach(function (photo) {
-      var photoItem = document.createElement('li');
-      var image = document.createElement('img');
-
-      image.src = photo;
-
-      photoItem.appendChild(image);
-      photosBlock.appendChild(photoItem);
-    });
-
   document.querySelector('.map').insertBefore(card, document.querySelector('.map__filters-container'));
 
   card.querySelector('.popup__title').textContent = item.offer.title;
