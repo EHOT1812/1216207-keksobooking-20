@@ -50,8 +50,6 @@ var getRandomFromTo = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-var cardTemplate = document.querySelector('#card').content;
-
 // Для значений в случайном порядке которые неповторяются
 
 var compareRandom = function () {
@@ -108,14 +106,9 @@ var showMap = function () {
   mapBlock.classList.remove('map--faded');
 };
 
-
 var renderPins = function (renderingOffer) {
   var pinTemplate = document.querySelector('#pin').content;
   var pinElement = pinTemplate.cloneNode(true);
-  pinElement.querySelector('img').src = renderingOffer.author.avatar;
-  pinElement.querySelector('img').textContent = renderingOffer.offer.title;
-
-
   pinElement.querySelector('.map__pin');
   var pinIcon = pinElement.querySelector('.map__pin');
   pinIcon.querySelector('img').src = renderingOffer.author.avatar;
