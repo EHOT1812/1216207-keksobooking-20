@@ -137,7 +137,6 @@ var renderCard = function (item) {
   while (featuresBlock.firstChild) {
     featuresBlock.removeChild(featuresBlock.firstChild);
   }
-
   while (photosBlock.firstChild) {
     photosBlock.removeChild(photosBlock.firstChild);
   }
