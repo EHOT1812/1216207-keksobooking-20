@@ -105,6 +105,7 @@ var showMap = function () {
   var mapBlock = document.querySelector('.map');
   mapBlock.classList.remove('map--faded');
 };
+var cardTemplate = document.querySelector('#card').content;
 
 var renderPins = function (renderingOffer) {
   var pinTemplate = document.querySelector('#pin').content;
