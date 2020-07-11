@@ -157,6 +157,56 @@ var renderCard = function (item) {
   }
   document.querySelector('.map').insertBefore(card, document.querySelector('.map__filters-container'));
 
+  /* обработка событий */
+  var makeElementsDisabled = function (array) {
+    for (var b = 0; b < array.length; b++) {
+      array[i].setAttribute('disabled', 'true');
+    }
+  };
+
+  var makeElementsActive = function (array) {
+    for (var b = 0; b < array.length; b++) {
+      array[i].removeAttribute('disabled');
+    }
+  };
+
+  var adForm = document.querySelector('.ad-form');
+  var adFormFieldset = document.querySelectorAll('.ad-form fieldset');
+  var mapFiltersSelect = document.querySelectorAll('.map__filters select');
+  var mapFeatures = document.querySelector('.map__features');
+  var mapPinMain = document.querySelector('.map__pin--main');
+
+  makeElementsDisabled(adFormFieldset);
+  makeElementsDisabled(mapFiltersSelect);
+  makeElementsDisabled(mapFeatures);
+
+
+  var activateMap = function () {
+    adForm.classList.remove('ad-form--disabled');
+
+    makeElementsActive(adFormFieldset);
+    makeElementsActive(mapFiltersSelect);
+    makeElementsActive(mapFeatures);
+
+    mapPinMain.removeEventListener('keydown', keyDownHandler);
+  };
+
+  mapPinMain.addEventListener('mousedown', function (evt) {
+    if (evt.button === 'LEFT_MOUSE_BUTTON') {
+      activateMap();
+      getAddress();
+    }
+  });
+
+  var keyDownHandler = function (evt) {
+    if (evt.key === 'Enter') {
+      activateMap();
+      getAddress();
+    }
+  };
+
+  mapPinMain.addEventListener('keydown', keyDownHandler);
+  /* Конец обработки событий */
   card.querySelector('.popup__title').textContent = item.offer.title;
   card.querySelector('.popup__text--address').textContent = item.offer.address;
   card.querySelector('.popup__text--price').textContent = item.offer.price + '₽/ночь';
@@ -165,10 +215,37 @@ var renderCard = function (item) {
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + item.offer.checkin + ', выезд до ' + item.offer.checkout;
   card.querySelector('.popup__description').textContent = item.offer.description;
   card.querySelector('.popup__avatar').src = item.author.avatar;
-
   return card;
 };
+var address = document.querySelector('#address');
 
+var getAddress = function () {
+  var locationX = Math.round(getRandomFromTo(0, 1200) - PIN_WIDTH / 2);
+  var locationY = Math.round(getRandomFromTo(130, 630) - PIN_HEIGHT);
+  address.value = locationX + ', ' + locationY;
+};
+
+var roomElements = document.querySelector('#room_number');
+var capacityElements = document.querySelector('#capacity');
+var FormSubmit = document.querySelector('.ad-form__submit');
+
+var matchingField = function () {
+  if (roomElements.value === '1' && capacityElements.value !== '1') {
+    capacityElements.setCustomValidity('Только для 1 гостя');
+  } else if (roomElements.value === '2' && (capacityElements.value > roomElements.value || capacityElements.value === '0')) {
+    capacityElements.setCustomValidity('До 2-х гостей');
+  } else if (roomElements.value === '3' && capacityElements.value === '0') {
+    capacityElements.setCustomValidity('До 3-х гостей');
+  } else if (roomElements.value === '100' && capacityElements.value !== '0') {
+    capacityElements.setCustomValidity('Не для гостей');
+  } else {
+    capacityElements.setCustomValidity('');
+  }
+};
+
+FormSubmit.addEventListener('click', function () {
+  matchingField();
+});
 
 renderCard(offersArray[0]);
 showMap();
