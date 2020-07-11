@@ -3,7 +3,6 @@
 var PIN_WIDTH = 40;
 var PIN_HEIGHT = 40;
 
-
 var OFFERS_COUNT = 8;
 
 var OFFERS_TITLES = [
