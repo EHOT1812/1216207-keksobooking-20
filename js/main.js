@@ -101,11 +101,9 @@ var generateOffers = function () {
   return offers;
 };
 
-var showMap = function () {
-  var mapBlock = document.querySelector('.map');
-  mapBlock.classList.remove('map--faded');
-};
-var cardTemplate = document.querySelector('#card').content;
+var mapBlock = document.querySelector('.map');
+
+/*var cardTemplate = document.querySelector('#card').content;*/
 
 var renderPins = function (renderingOffer) {
   var pinTemplate = document.querySelector('#pin').content;
@@ -127,7 +125,7 @@ var setupPins = function () {
   }
   similarListElement.appendChild(fragment);
 };
-
+/*
 var renderCard = function (item) {
   var fragment = document.createDocumentFragment();
   var card = cardTemplate.querySelector('.popup').cloneNode(true);
@@ -156,17 +154,17 @@ var renderCard = function (item) {
     fragment.appendChild(pictureList);
   }
   document.querySelector('.map').insertBefore(card, document.querySelector('.map__filters-container'));
-
+*/
   /* обработка событий */
   var makeElementsDisabled = function (array) {
     for (var b = 0; b < array.length; b++) {
-      array[i].setAttribute('disabled', 'true');
+      array[b].setAttribute('disabled', 'true');
     }
   };
 
   var makeElementsActive = function (array) {
     for (var b = 0; b < array.length; b++) {
-      array[i].removeAttribute('disabled');
+      array[b].removeAttribute('disabled');
     }
   };
 
@@ -207,6 +205,7 @@ var renderCard = function (item) {
 
   mapPinMain.addEventListener('keydown', keyDownHandler);
   /* Конец обработки событий */
+/*
   card.querySelector('.popup__title').textContent = item.offer.title;
   card.querySelector('.popup__text--address').textContent = item.offer.address;
   card.querySelector('.popup__text--price').textContent = item.offer.price + '₽/ночь';
@@ -217,6 +216,7 @@ var renderCard = function (item) {
   card.querySelector('.popup__avatar').src = item.author.avatar;
   return card;
 };
+*/
 var address = document.querySelector('#address');
 
 var getAddress = function () {
@@ -246,7 +246,8 @@ var matchingField = function () {
 FormSubmit.addEventListener('click', function () {
   matchingField();
 });
-
+/*
 renderCard(offersArray[0]);
 showMap();
+ */
 setupPins();
