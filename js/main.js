@@ -101,9 +101,8 @@ var generateOffers = function () {
   return offers;
 };
 
-var mapBlock = document.querySelector('.map');
-
-/*var cardTemplate = document.querySelector('#card').content;*/
+/* var mapBlock = document.querySelector('.map');*/
+/* var cardTemplate = document.querySelector('#card').content;*/
 
 var renderPins = function (renderingOffer) {
   var pinTemplate = document.querySelector('#pin').content;
@@ -155,56 +154,56 @@ var renderCard = function (item) {
   }
   document.querySelector('.map').insertBefore(card, document.querySelector('.map__filters-container'));
 */
-  /* обработка событий */
-  var makeElementsDisabled = function (array) {
-    for (var b = 0; b < array.length; b++) {
-      array[b].setAttribute('disabled', 'true');
-    }
-  };
+/* обработка событий */
+var makeElementsDisabled = function (array) {
+  for (var b = 0; b < array.length; b++) {
+    array[b].setAttribute('disabled', 'true');
+  }
+};
 
-  var makeElementsActive = function (array) {
-    for (var b = 0; b < array.length; b++) {
-      array[b].removeAttribute('disabled');
-    }
-  };
+var makeElementsActive = function (array) {
+  for (var b = 0; b < array.length; b++) {
+    array[b].removeAttribute('disabled');
+  }
+};
 
-  var adForm = document.querySelector('.ad-form');
-  var adFormFieldset = document.querySelectorAll('.ad-form fieldset');
-  var mapFiltersSelect = document.querySelectorAll('.map__filters select');
-  var mapFeatures = document.querySelector('.map__features');
-  var mapPinMain = document.querySelector('.map__pin--main');
+var adForm = document.querySelector('.ad-form');
+var adFormFieldset = document.querySelectorAll('.ad-form fieldset');
+var mapFiltersSelect = document.querySelectorAll('.map__filters select');
+var mapFeatures = document.querySelector('.map__features');
+var mapPinMain = document.querySelector('.map__pin--main');
 
-  makeElementsDisabled(adFormFieldset);
-  makeElementsDisabled(mapFiltersSelect);
-  makeElementsDisabled(mapFeatures);
+makeElementsDisabled(adFormFieldset);
+makeElementsDisabled(mapFiltersSelect);
+makeElementsDisabled(mapFeatures);
 
 
-  var activateMap = function () {
-    adForm.classList.remove('ad-form--disabled');
+var activateMap = function () {
+  adForm.classList.remove('ad-form--disabled');
 
-    makeElementsActive(adFormFieldset);
-    makeElementsActive(mapFiltersSelect);
-    makeElementsActive(mapFeatures);
+  makeElementsActive(adFormFieldset);
+  makeElementsActive(mapFiltersSelect);
+  makeElementsActive(mapFeatures);
 
-    mapPinMain.removeEventListener('keydown', keyDownHandler);
-  };
+  mapPinMain.removeEventListener('keydown', keyDownHandler);
+};
 
-  mapPinMain.addEventListener('mousedown', function (evt) {
-    if (evt.button === 'LEFT_MOUSE_BUTTON') {
-      activateMap();
-      getAddress();
-    }
-  });
+mapPinMain.addEventListener('mousedown', function (evt) {
+  if (evt.button === 'LEFT_MOUSE_BUTTON') {
+    activateMap();
+    getAddress();
+  }
+});
 
-  var keyDownHandler = function (evt) {
-    if (evt.key === 'Enter') {
-      activateMap();
-      getAddress();
-    }
-  };
+var keyDownHandler = function (evt) {
+  if (evt.key === 'Enter') {
+    activateMap();
+    getAddress();
+  }
+};
 
-  mapPinMain.addEventListener('keydown', keyDownHandler);
-  /* Конец обработки событий */
+mapPinMain.addEventListener('keydown', keyDownHandler);
+/* Конец обработки событий */
 /*
   card.querySelector('.popup__title').textContent = item.offer.title;
   card.querySelector('.popup__text--address').textContent = item.offer.address;
